@@ -1,0 +1,134 @@
+type Alumno {
+    noControl: ID!
+    nombre: String
+    apellidoPaterno: String
+    apellidoMaterno: String
+    fechaNacimiento: String
+    genero: String
+    carrera: String
+    telefono: Int
+    direccion: Direccion
+}
+
+type Direccion {
+    id: ID!
+    calle: String!
+    numero: Int!
+    colonia: String!
+    codigoPostal: Int!
+    ciudad: String!
+    estado: String!
+}
+
+type Servicio {
+    id: ID!
+    alumno: Alumno
+    dependencia: Dependencia
+    programa: Programa
+}
+
+type Dependencia {
+    id: ID!
+    nombre: String
+    programa: Programa
+    encargado: Alumno
+}
+
+type Programa {
+    id: ID!
+    nombre: String
+    actividades: String
+}
+
+type Query {
+    alumnoById(id: ID!): Alumno
+    allAlumnos: [Alumno]
+    direccionById(id: ID!): Direccion
+    servicioById(id: ID!): Servicio
+    allServicios: [Servicio]
+    dependenciaById(id: ID!): Dependencia
+    allDependencias: [Dependencia]
+    programaById(id: ID!): Programa
+    allProgramas: [Programa]
+}
+
+type Mutation {
+    createAlumno(
+        nombre: String,
+        apellidoPaterno: String,
+        apellidoMaterno: String,
+        fechaNacimiento: String,
+        genero: String,
+        carrera: String,
+        telefono: Int,
+        direccion: String
+    ): Alumno
+    updateAlumno(
+        id: ID!,
+        nombre: String,
+        apellidoPaterno: String,
+        apellidoMaterno: String,
+        fechaNacimiento: String,
+        genero: String,
+        carrera: String,
+        telefono: Int,
+        direccion: String
+    ): Alumno
+    deleteAlumno(id: ID!): Boolean
+
+    createDireccion(
+        calle: String!,
+        numero: Int!,
+        colonia: String!,
+        codigoPostal: Int!,
+        ciudad: String!,
+        estado: String!
+    ): Direccion
+    updateDireccion(
+        id: ID!,
+        calle: String,
+        numero: Int,
+        colonia: String,
+        codigoPostal: Int,
+        ciudad: String,
+        estado: String
+    ): Direccion
+    deleteDireccion(id: ID!): Boolean
+
+    createServicio(
+        alumno: ID!,
+        dependencia: ID!,
+        programa: ID!
+    ): Servicio
+    updateServicio(
+        id: ID!,
+        alumno: ID!,
+        dependencia: ID!,
+        programa: ID!
+    ): Servicio
+    deleteServicio(id: ID!): Boolean
+
+    createDependencia(
+        nombre: String,
+        programa: ID!,
+        encargado: ID!
+    ): Dependencia
+    updateDependencia(
+        id: ID!,
+        nombre: String,
+        programa: ID!,
+        encargado: ID!
+    ): Dependencia
+    deleteDependencia(id: ID!): Boolean
+
+    createPrograma(
+        nombre: String,
+        actividades: String
+    ): Programa
+    updatePrograma(
+        id: ID!,
+        nombre: String,
+        actividades: String
+    ): Programa
+    deletePrograma(id: ID!): Boolean
+}
